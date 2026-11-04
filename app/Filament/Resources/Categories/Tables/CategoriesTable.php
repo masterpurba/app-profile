@@ -16,21 +16,28 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->label(__('Slug'))
                     ->searchable(),
                 TextColumn::make('icon')
+                    ->label(__('Icon'))
                     ->searchable(),
                 TextColumn::make('sort_order')
+                    ->label(__('Order'))
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label(__('Active Status'))
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label(__('Created At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label(__('Updated At'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

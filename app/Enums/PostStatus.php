@@ -14,9 +14,9 @@ enum PostStatus: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Published => 'Dipublikasikan',
-            self::Archived => 'Diarsipkan',
+            self::Draft => __('Draft'),
+            self::Published => __('Published'),
+            self::Archived => __('Archived'),
         };
     }
 

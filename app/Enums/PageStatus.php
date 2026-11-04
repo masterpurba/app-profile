@@ -13,8 +13,8 @@ enum PageStatus: string implements HasColor, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Published => 'Dipublikasikan',
+            self::Draft => __('Draft'),
+            self::Published => __('Published'),
         };
     }
 

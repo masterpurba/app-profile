@@ -19,32 +19,33 @@ class PagesTable
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('Slug'))
                     ->badge()
                     ->searchable(),
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge(),
                 IconColumn::make('show_in_menu')
-                    ->label('Di Menu')
+                    ->label(__('In Menu'))
                     ->boolean()
                     ->sortable(),
                 TextColumn::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diperbarui')
+                    ->label(__('Last Updated'))
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])
             ->defaultSort('sort_order', 'asc')
             ->filters([
                 SelectFilter::make('status')
+                    ->label(__('Status'))
                     ->options(PageStatus::class),
             ])
             ->recordActions([

@@ -23,62 +23,66 @@ class PostForm
         return $schema
             ->components([
                 Grid::make(3)->schema([
-                    Section::make('Konten Artikel')
+                    Section::make(__('Article Content'))
                         ->schema([
                             TextInput::make('title')
-                                ->label('Judul Artikel')
+                                ->label(__('Article Title'))
                                 ->required()
                                 ->live(onBlur: true)
                                 ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                             TextInput::make('slug')
-                                ->label('Slug URL')
+                                ->label(__('URL Slug'))
                                 ->required()
                                 ->unique(ignoreRecord: true),
                             Textarea::make('summary')
-                                ->label('Ringkasan Singkat')
+                                ->label(__('Brief Summary'))
                                 ->rows(3)
                                 ->columnSpanFull(),
                             RichEditor::make('content')
-                                ->label('Isi Lengkap Artikel')
+                                ->label(__('Full Article Content'))
                                 ->required()
                                 ->columnSpanFull(),
                         ])->columnSpan(2),
 
-                    Section::make('Meta & Publikasi')
+                    Section::make(__('Meta & Publication'))
                         ->schema([
                             Select::make('category_id')
-                                ->label('Kategori')
+                                ->label(__('Category'))
                                 ->relationship('category', 'name')
                                 ->searchable()
                                 ->preload()
                                 ->createOptionForm([
-                                    TextInput::make('name')->required(),
-                                    TextInput::make('slug')->required(),
+                                    TextInput::make('name')
+                                        ->label(__('Category Name'))
+                                        ->required(),
+                                    TextInput::make('slug')
+                                        ->label(__('URL Slug'))
+                                        ->required(),
                                 ]),
                             Select::make('user_id')
-                                ->label('Penulis')
+                                ->label(__('Author'))
                                 ->relationship('user', 'name')
                                 ->default(fn () => auth()->id())
                                 ->required()
                                 ->searchable(),
                             Select::make('status')
-                                ->label('Status Publikasi')
+                                ->label(__('Publication Status'))
                                 ->options(PostStatus::class)
                                 ->default(PostStatus::Draft)
                                 ->required(),
                             DateTimePicker::make('published_at')
-                                ->label('Tanggal Tayang')
+                                ->label(__('Publish Date'))
                                 ->default(now()),
                             FileUpload::make('image')
-                                ->label('Gambar Utama')
+                                ->label(__('Featured Image'))
                                 ->image()
                                 ->directory('posts')
                                 ->visibility('public'),
                             Toggle::make('is_featured')
-                                ->label('Tampilkan sebagai Unggulan (Featured)')
+                                ->label(__('Set as Featured'))
                                 ->default(false),
                             TextInput::make('view_count')
-                                ->label('Jumlah Dilihat')
+                                ->label(__('View Count'))
                                 ->numeric()
                                 ->default(0)
                                 ->disabled(),

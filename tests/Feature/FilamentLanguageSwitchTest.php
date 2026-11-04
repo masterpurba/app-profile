@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PostStatus;
+use App\Filament\Resources\Categories\CategoryResource;
 use App\Models\User;
 use BezhanSalleh\LanguageSwitch\Http\Livewire\LanguageSwitchComponent;
 use Database\Seeders\DatabaseSeeder;
@@ -43,5 +45,17 @@ class FilamentLanguageSwitchTest extends TestCase
             ->assertSuccessful()
             ->assertSeeLivewire(LanguageSwitchComponent::class);
     }
-}
 
+    public function test_filament_supports_multilingual_labels(): void
+    {
+        app()->setLocale('id');
+        $this->assertEquals('Kategori', CategoryResource::getModelLabel());
+        $this->assertEquals('Konten', CategoryResource::getNavigationGroup());
+        $this->assertEquals('Dipublikasikan', PostStatus::Published->getLabel());
+
+        app()->setLocale('en');
+        $this->assertEquals('Category', CategoryResource::getModelLabel());
+        $this->assertEquals('Content', CategoryResource::getNavigationGroup());
+        $this->assertEquals('Published', PostStatus::Published->getLabel());
+    }
+}

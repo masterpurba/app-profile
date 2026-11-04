@@ -16,30 +16,30 @@ class QuestionTopicForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Topik')
+                Section::make(__('Topic Information'))
                     ->schema([
                         TextInput::make('name')
-                            ->label('Nama Topik')
+                            ->label(__('Topic Name'))
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                         TextInput::make('slug')
-                            ->label('Slug URL')
+                            ->label(__('URL Slug'))
                             ->required()
                             ->unique(ignoreRecord: true),
                         Textarea::make('description')
-                            ->label('Deskripsi')
+                            ->label(__('Description'))
                             ->columnSpanFull(),
                         TextInput::make('icon')
-                            ->label('Icon')
-                            ->placeholder('contoh: folder, chat, user'),
+                            ->label(__('Icon'))
+                            ->placeholder(__('e.g. folder, chat, user')),
                         TextInput::make('sort_order')
-                            ->label('Urutan')
+                            ->label(__('Order'))
                             ->numeric()
                             ->default(0)
                             ->required(),
                         Toggle::make('is_active')
-                            ->label('Status Aktif')
+                            ->label(__('Active Status'))
                             ->default(true)
                             ->required(),
                     ])->columns(2),

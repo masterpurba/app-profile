@@ -22,77 +22,77 @@ class QuestionForm
         return $schema
             ->components([
                 Grid::make(3)->schema([
-                    Section::make('Rincian Pertanyaan Masyarakat')
+                    Section::make(__('Public Question Details'))
                         ->schema([
                             TextInput::make('subject')
-                                ->label('Subjek Pertanyaan')
+                                ->label(__('Question Subject'))
                                 ->required()
                                 ->columnSpanFull(),
                             Textarea::make('body')
-                                ->label('Isi Pertanyaan Lengkap')
+                                ->label(__('Full Question Body'))
                                 ->rows(5)
                                 ->required()
                                 ->columnSpanFull(),
                             Select::make('topic_id')
-                                ->label('Topik')
+                                ->label(__('Topic'))
                                 ->relationship('topic', 'name')
                                 ->searchable()
                                 ->preload(),
                             Select::make('status')
-                                ->label('Status Pertanyaan')
+                                ->label(__('Question Status'))
                                 ->options(QuestionStatus::class)
                                 ->default(QuestionStatus::Pending)
                                 ->required(),
                         ])->columns(2)->columnSpan(2),
 
-                    Section::make('Identitas Penanya')
+                    Section::make(__('Questioner Identity'))
                         ->schema([
                             TextInput::make('name')
-                                ->label('Nama Lengkap')
+                                ->label(__('Full Name'))
                                 ->required(),
                             TextInput::make('email')
-                                ->label('Email Penanya')
+                                ->label(__('Questioner Email'))
                                 ->email()
                                 ->required(),
                             TextInput::make('phone')
-                                ->label('No. Telepon / WhatsApp')
+                                ->label(__('Phone Number / WhatsApp'))
                                 ->tel(),
                             TextInput::make('ip_address')
-                                ->label('Alamat IP')
+                                ->label(__('IP Address'))
                                 ->disabled(),
                         ])->columnSpan(1),
                 ])->columnSpanFull(),
 
-                Section::make('Tanggapan & Jawaban Resmi')
-                    ->description('Tuliskan jawaban dari pihak instansi untuk pertanyaan ini')
+                Section::make(__('Official Response & Answer'))
+                    ->description(__('Write official agency answer for this question'))
                     ->schema([
                         Repeater::make('answers')
                             ->relationship('answers')
                             ->schema([
                                 Select::make('user_id')
-                                    ->label('Petugas / Admin Penjawab')
+                                    ->label(__('Responding Officer / Admin'))
                                     ->relationship('user', 'name')
                                     ->default(fn () => auth()->id())
                                     ->required(),
                                 Select::make('status')
-                                    ->label('Status Jawaban')
+                                    ->label(__('Response Status'))
                                     ->options(AnswerStatus::class)
                                     ->default(AnswerStatus::Published)
                                     ->required(),
                                 Toggle::make('is_published')
-                                    ->label('Tampilkan ke Publik')
+                                    ->label(__('Show to Public'))
                                     ->default(true),
                                 DateTimePicker::make('answered_at')
-                                    ->label('Tanggal Dijawab')
+                                    ->label(__('Answered Date'))
                                     ->default(now()),
                                 RichEditor::make('body')
-                                    ->label('Isi Jawaban Resmi')
+                                    ->label(__('Official Answer Content'))
                                     ->required()
                                     ->columnSpanFull(),
                             ])
                             ->columns(4)
                             ->defaultItems(0)
-                            ->addActionLabel('Tambah Tanggapan Baru'),
+                            ->addActionLabel(__('Add New Response')),
                     ]),
             ]);
     }

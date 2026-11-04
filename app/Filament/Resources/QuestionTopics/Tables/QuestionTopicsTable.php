@@ -17,24 +17,24 @@ class QuestionTopicsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama Topik')
+                    ->label(__('Topic Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('Slug'))
                     ->badge()
                     ->searchable(),
                 TextColumn::make('questions_count')
-                    ->label('Pertanyaan Masuk')
+                    ->label(__('Incoming Questions'))
                     ->counts('questions')
                     ->badge()
                     ->sortable(),
                 TextColumn::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->numeric()
                     ->sortable(),
                 IconColumn::make('is_active')
-                    ->label('Status Aktif')
+                    ->label(__('Active Status'))
                     ->boolean()
                     ->sortable(),
             ])

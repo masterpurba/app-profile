@@ -14,33 +14,33 @@ class MediaForm
     {
         return $schema
             ->components([
-                Section::make('Unggah Berkas Media')
+                Section::make(__('Upload Media File'))
                     ->schema([
                         Select::make('user_id')
-                            ->label('Pengunggah')
+                            ->label(__('Uploader'))
                             ->relationship('user', 'name')
                             ->default(fn () => auth()->id())
                             ->required(),
                         FileUpload::make('file_path')
-                            ->label('Pilih Berkas / Foto')
+                            ->label(__('Choose File / Photo'))
                             ->directory('media')
                             ->visibility('public')
                             ->required()
                             ->columnSpanFull(),
                         TextInput::make('file_name')
-                            ->label('Nama Berkas')
+                            ->label(__('File Name'))
                             ->required(),
                         TextInput::make('mime_type')
-                            ->label('Tipe Konten (MIME)')
-                            ->placeholder('image/jpeg, application/pdf')
+                            ->label(__('Content Type (MIME)'))
+                            ->placeholder(__('e.g. image/jpeg, application/pdf'))
                             ->required(),
                         TextInput::make('file_size')
-                            ->label('Ukuran Berkas (Bytes)')
+                            ->label(__('File Size (Bytes)'))
                             ->numeric()
                             ->default(0)
                             ->required(),
                         TextInput::make('alt_text')
-                            ->label('Teks Alternatif (Alt Text)')
+                            ->label(__('Alternative Text (Alt Text)'))
                             ->columnSpanFull(),
                     ])->columns(2),
             ]);

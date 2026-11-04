@@ -17,24 +17,24 @@ class MediaTable
         return $table
             ->columns([
                 ImageColumn::make('file_path')
-                    ->label('Pratinjau')
+                    ->label(__('Preview'))
                     ->square(),
                 TextColumn::make('file_name')
-                    ->label('Nama File')
+                    ->label(__('File Name'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('mime_type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->badge(),
                 TextColumn::make('file_size')
-                    ->label('Ukuran')
+                    ->label(__('Size'))
                     ->formatStateUsing(fn ($state) => number_format($state / 1024, 1).' KB')
                     ->sortable(),
                 TextColumn::make('user.name')
-                    ->label('Pengunggah')
+                    ->label(__('Uploader'))
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->label('Diupload')
+                    ->label(__('Uploaded At'))
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])

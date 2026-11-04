@@ -18,28 +18,29 @@ class SettingsTable
         return $table
             ->columns([
                 TextColumn::make('group')
-                    ->label('Grup')
+                    ->label(__('Group'))
                     ->badge()
                     ->sortable(),
                 TextColumn::make('key')
-                    ->label('Kunci (Key)')
+                    ->label(__('Key'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->badge(),
                 TextColumn::make('value')
-                    ->label('Nilai (Value)')
+                    ->label(__('Value'))
                     ->limit(60)
                     ->searchable(),
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diubah')
+                    ->label(__('Last Modified'))
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])
             ->defaultSort('group', 'asc')
             ->filters([
                 SelectFilter::make('type')
+                    ->label(__('Type'))
                     ->options(SettingType::class),
             ])
             ->recordActions([

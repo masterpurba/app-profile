@@ -14,7 +14,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class SettingResource extends Resource
 {
@@ -22,13 +21,22 @@ class SettingResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan';
-
-    protected static ?string $modelLabel = 'Pengaturan';
-
-    protected static ?string $pluralModelLabel = 'Pengaturan Situs';
-
     protected static ?int $navigationSort = 1;
+
+    public static function getModelLabel(): string
+    {
+        return __('Setting');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Site Settings');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
+    }
 
     public static function canViewAny(): bool
     {

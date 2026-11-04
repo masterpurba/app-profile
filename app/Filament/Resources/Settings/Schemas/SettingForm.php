@@ -15,25 +15,25 @@ class SettingForm
     {
         return $schema
             ->components([
-                Section::make('Konfigurasi Pengaturan')
+                Section::make(__('Setting Configuration'))
                     ->schema([
                         TextInput::make('group')
-                            ->label('Grup Pengaturan')
-                            ->placeholder('contoh: general, contact, social, seo')
+                            ->label(__('Setting Group'))
+                            ->placeholder(__('e.g. general, contact, social, seo'))
                             ->default('general')
                             ->required(),
                         TextInput::make('key')
-                            ->label('Kunci (Key unik)')
-                            ->placeholder('contoh: site_name, contact_email')
+                            ->label(__('Key (Unique key)'))
+                            ->placeholder(__('e.g. site_name, contact_email'))
                             ->required()
                             ->unique(ignoreRecord: true),
                         Select::make('type')
-                            ->label('Tipe Nilai')
+                            ->label(__('Value Type'))
                             ->options(SettingType::class)
                             ->default(SettingType::Text)
                             ->required(),
                         Textarea::make('value')
-                            ->label('Nilai Pengaturan (Value)')
+                            ->label(__('Setting Value'))
                             ->rows(4)
                             ->columnSpanFull(),
                     ])->columns(3),

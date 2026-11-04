@@ -16,30 +16,30 @@ class UserForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Akun Pengguna')
+                Section::make(__('User Account Information'))
                     ->schema([
                         FileUpload::make('avatar')
-                            ->label('Foto Profil / Avatar')
+                            ->label(__('Profile Photo / Avatar'))
                             ->image()
                             ->avatar()
                             ->directory('avatars')
                             ->visibility('public')
                             ->columnSpanFull(),
                         TextInput::make('name')
-                            ->label('Nama Lengkap')
+                            ->label(__('Full Name'))
                             ->required(),
                         TextInput::make('email')
-                            ->label('Alamat Email')
+                            ->label(__('Email Address'))
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
                         Select::make('role')
-                            ->label('Peran / Hak Akses')
+                            ->label(__('Role / Permissions'))
                             ->options(UserRole::class)
                             ->default(UserRole::Viewer)
                             ->required(),
                         TextInput::make('password')
-                            ->label('Kata Sandi')
+                            ->label(__('Password'))
                             ->password()
                             ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
                             ->dehydrated(fn ($state) => filled($state))

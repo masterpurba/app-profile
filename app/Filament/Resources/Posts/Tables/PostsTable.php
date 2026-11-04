@@ -20,43 +20,43 @@ class PostsTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Cover')
+                    ->label(__('Cover'))
                     ->circular()
                     ->defaultImageUrl('/placeholder.png'),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->searchable()
                     ->sortable()
                     ->limit(40)
                     ->tooltip(fn ($record): string => $record->title),
                 TextColumn::make('category.name')
-                    ->label('Kategori')
+                    ->label(__('Category'))
                     ->badge()
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge(),
                 IconColumn::make('is_featured')
-                    ->label('Unggulan')
+                    ->label(__('Featured'))
                     ->boolean()
                     ->sortable(),
                 TextColumn::make('view_count')
-                    ->label('Views')
+                    ->label(__('Views'))
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('published_at')
-                    ->label('Tayang')
+                    ->label(__('Published At'))
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])
             ->defaultSort('published_at', 'desc')
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Filter Status')
+                    ->label(__('Status Filter'))
                     ->options(PostStatus::class),
                 SelectFilter::make('category')
-                    ->label('Filter Kategori')
+                    ->label(__('Category Filter'))
                     ->relationship('category', 'name'),
             ])
             ->recordActions([

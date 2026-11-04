@@ -17,46 +17,46 @@ class MenuForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Menu')
+                Section::make(__('Menu Information'))
                     ->schema([
                         TextInput::make('name')
-                            ->label('Nama Menu')
+                            ->label(__('Menu Name'))
                             ->required(),
                         Select::make('location')
-                            ->label('Lokasi Penempatan')
+                            ->label(__('Placement Location'))
                             ->options(MenuLocation::class)
                             ->default(MenuLocation::Header)
                             ->required(),
                         Toggle::make('is_active')
-                            ->label('Status Aktif')
+                            ->label(__('Active Status'))
                             ->default(true)
                             ->required(),
                     ])->columns(3),
 
-                Section::make('Daftar Item Menu')
-                    ->description('Kelola tautan dan urutan item di dalam menu ini')
+                Section::make(__('Menu Item List'))
+                    ->description(__('Manage links and ordering of items in this menu'))
                     ->schema([
                         Repeater::make('items')
                             ->relationship('items')
                             ->schema([
                                 TextInput::make('label')
-                                    ->label('Teks Tautan')
+                                    ->label(__('Link Text'))
                                     ->required(),
                                 Select::make('type')
-                                    ->label('Tipe')
+                                    ->label(__('Type'))
                                     ->options(MenuItemType::class)
                                     ->default(MenuItemType::Custom)
                                     ->required(),
                                 TextInput::make('url')
-                                    ->label('Alamat URL / Path')
+                                    ->label(__('URL Address / Path'))
                                     ->required(),
                                 TextInput::make('sort_order')
-                                    ->label('Urutan')
+                                    ->label(__('Order'))
                                     ->numeric()
                                     ->default(0)
                                     ->required(),
                                 Toggle::make('is_active')
-                                    ->label('Aktif')
+                                    ->label(__('Active'))
                                     ->default(true),
                             ])
                             ->orderColumn('sort_order')

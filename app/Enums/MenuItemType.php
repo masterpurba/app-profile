@@ -14,10 +14,10 @@ enum MenuItemType: string implements HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Page => 'Halaman Statis',
-            self::Post => 'Artikel / Berita',
-            self::Category => 'Kategori',
-            self::Custom => 'Tautan Kustom',
+            self::Page => __('Static Page'),
+            self::Post => __('Article / News'),
+            self::Category => __('Category'),
+            self::Custom => __('Custom Link'),
         };
     }
 }

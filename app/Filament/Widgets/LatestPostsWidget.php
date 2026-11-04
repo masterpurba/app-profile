@@ -9,6 +9,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 
 class LatestPostsWidget extends TableWidget
@@ -17,35 +18,39 @@ class LatestPostsWidget extends TableWidget
 
     protected int|string|array $columnSpan = 'full';
 
-    protected static ?string $heading = 'Artikel & Berita Terbaru';
+    protected function getTableHeading(): string|Htmlable|null
+    {
+        return __('Latest Articles & News');
+    }
 
     public function table(Table $table): Table
     {
         return $table
+            ->heading(__('Latest Articles & News'))
             ->query(fn (): Builder => Post::query()->latest('published_at')->limit(5))
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Cover')
+                    ->label(__('Cover'))
                     ->circular(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->limit(50),
                 TextColumn::make('category.name')
-                    ->label('Kategori')
+                    ->label(__('Category'))
                     ->badge(),
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge(),
                 TextColumn::make('view_count')
-                    ->label('Dilihat')
+                    ->label(__('Views'))
                     ->numeric(),
                 TextColumn::make('published_at')
-                    ->label('Tanggal Publikasi')
+                    ->label(__('Publish Date'))
                     ->dateTime('d M Y, H:i'),
             ])
             ->recordActions([
                 Action::make('edit')
-                    ->label('Kelola')
+                    ->label(__('Manage'))
                     ->icon('heroicon-m-pencil-square')
                     ->url(fn (Post $record): string => PostResource::getUrl('edit', ['record' => $record])),
             ])

@@ -16,30 +16,30 @@ class CategoryForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Kategori')
+                Section::make(__('Category Information'))
                     ->schema([
                         TextInput::make('name')
-                            ->label('Nama Kategori')
+                            ->label(__('Category Name'))
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                         TextInput::make('slug')
-                            ->label('Slug URL')
+                            ->label(__('URL Slug'))
                             ->required()
                             ->unique(ignoreRecord: true),
                         Textarea::make('description')
-                            ->label('Deskripsi')
+                            ->label(__('Description'))
                             ->columnSpanFull(),
                         TextInput::make('icon')
-                            ->label('Icon Heroicon')
-                            ->placeholder('contoh: newspaper, flag, tag'),
+                            ->label(__('Heroicon Icon'))
+                            ->placeholder(__('e.g. newspaper, flag, tag')),
                         TextInput::make('sort_order')
-                            ->label('Urutan Tampil')
+                            ->label(__('Display Order'))
                             ->required()
                             ->numeric()
                             ->default(0),
                         Toggle::make('is_active')
-                            ->label('Status Aktif')
+                            ->label(__('Active Status'))
                             ->default(true)
                             ->required(),
                     ])->columns(2),

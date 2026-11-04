@@ -16,36 +16,36 @@ class SlideForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Slide')
+                Section::make(__('Slide Information'))
                     ->schema([
                         TextInput::make('title')
-                            ->label('Judul Slide')
+                            ->label(__('Slide Title'))
                             ->required(),
                         TextInput::make('link_url')
-                            ->label('Tautan Tujuan (URL)'),
+                            ->label(__('Target Link (URL)')),
                         Textarea::make('description')
-                            ->label('Deskripsi Singkat')
+                            ->label(__('Short Description'))
                             ->columnSpanFull(),
                         FileUpload::make('image')
-                            ->label('Gambar Slide / Banner')
+                            ->label(__('Slide / Banner Image'))
                             ->image()
                             ->directory('slides')
                             ->visibility('public')
                             ->required()
                             ->columnSpanFull(),
                         TextInput::make('sort_order')
-                            ->label('Urutan')
+                            ->label(__('Order'))
                             ->numeric()
                             ->default(0)
                             ->required(),
                         Toggle::make('is_active')
-                            ->label('Status Aktif')
+                            ->label(__('Active Status'))
                             ->default(true)
                             ->required(),
                         DatePicker::make('start_date')
-                            ->label('Tanggal Mulai Tayang'),
+                            ->label(__('Display Start Date')),
                         DatePicker::make('end_date')
-                            ->label('Tanggal Selesai Tayang'),
+                            ->label(__('Display End Date')),
                     ])->columns(2),
             ]);
     }

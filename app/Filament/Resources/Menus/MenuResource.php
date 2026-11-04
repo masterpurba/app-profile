@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class MenuResource extends Resource
 {
@@ -21,13 +20,22 @@ class MenuResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBars3;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Tampilan';
-
-    protected static ?string $modelLabel = 'Menu Navigasi';
-
-    protected static ?string $pluralModelLabel = 'Menu Navigasi';
-
     protected static ?int $navigationSort = 1;
+
+    public static function getModelLabel(): string
+    {
+        return __('Navigation Menu');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Navigation Menus');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Appearance');
+    }
 
     public static function form(Schema $schema): Schema
     {
