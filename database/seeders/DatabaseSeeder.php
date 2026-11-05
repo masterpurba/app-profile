@@ -57,16 +57,28 @@ class DatabaseSeeder extends Seeder
 
         // 3. Categories
         $berita = Category::firstOrCreate(['slug' => 'berita'], [
-            'name' => 'Berita',
-            'description' => 'Berita dan peristiwa terkini',
+            'name' => [
+                'id' => 'Berita',
+                'en' => 'News',
+            ],
+            'description' => [
+                'id' => 'Berita dan peristiwa terkini',
+                'en' => 'Latest news and current events',
+            ],
             'icon' => 'newspaper',
             'sort_order' => 1,
             'is_active' => true,
         ]);
 
         $pengumuman = Category::firstOrCreate(['slug' => 'pengumuman'], [
-            'name' => 'Pengumuman',
-            'description' => 'Pengumuman resmi kedinasan',
+            'name' => [
+                'id' => 'Pengumuman',
+                'en' => 'Announcements',
+            ],
+            'description' => [
+                'id' => 'Pengumuman resmi kedinasan',
+                'en' => 'Official agency announcements',
+            ],
             'icon' => 'megaphone',
             'sort_order' => 2,
             'is_active' => true,
@@ -76,9 +88,18 @@ class DatabaseSeeder extends Seeder
         Post::firstOrCreate(['slug' => 'peluncuran-layanan-digital-terpadu'], [
             'user_id' => $admin->id,
             'category_id' => $berita->id,
-            'title' => 'Peluncuran Layanan Digital Terpadu untuk Masyarakat',
-            'summary' => 'Inovasi transformasi digital untuk mempercepat respon pertanyaan dan layanan masyarakat.',
-            'content' => '<p>Instansi resmi meluncurkan portal layanan terpadu berbasis digital untuk mempermudah akses informasi publik dan pengajuan aspirasi.</p>',
+            'title' => [
+                'id' => 'Peluncuran Layanan Digital Terpadu untuk Masyarakat',
+                'en' => 'Launch of Integrated Digital Services for the Public',
+            ],
+            'summary' => [
+                'id' => 'Inovasi transformasi digital untuk mempercepat respon pertanyaan dan layanan masyarakat.',
+                'en' => 'Digital transformation innovation to accelerate responses to public inquiries and services.',
+            ],
+            'content' => [
+                'id' => '<p>Instansi resmi meluncurkan portal layanan terpadu berbasis digital untuk mempermudah akses informasi publik dan pengajuan aspirasi.</p>',
+                'en' => '<p>The agency officially launches an integrated digital service portal to facilitate public information access and aspirations submission.</p>',
+            ],
             'status' => PostStatus::Published,
             'published_at' => now(),
             'view_count' => 150,
@@ -88,8 +109,14 @@ class DatabaseSeeder extends Seeder
         // 5. Sample Static Page
         Page::firstOrCreate(['slug' => 'profil-instansi'], [
             'user_id' => $admin->id,
-            'title' => 'Profil Instansi',
-            'content' => '<p>Portal ini bertujuan memberikan pelayanan prima dan transparansi informasi publik kepada seluruh lapisan masyarakat.</p>',
+            'title' => [
+                'id' => 'Profil Instansi',
+                'en' => 'Agency Profile',
+            ],
+            'content' => [
+                'id' => '<p>Portal ini bertujuan memberikan pelayanan prima dan transparansi informasi publik kepada seluruh lapisan masyarakat.</p>',
+                'en' => '<p>This portal aims to provide excellent service and public information transparency to all layers of society.</p>',
+            ],
             'status' => PageStatus::Published,
             'sort_order' => 1,
             'show_in_menu' => true,
@@ -97,16 +124,28 @@ class DatabaseSeeder extends Seeder
 
         // 6. Question Topics
         $topicPelayanan = QuestionTopic::firstOrCreate(['slug' => 'pelayanan-publik'], [
-            'name' => 'Pelayanan Publik',
-            'description' => 'Pertanyaan terkait jam operasional dan prosedur layanan',
+            'name' => [
+                'id' => 'Pelayanan Publik',
+                'en' => 'Public Services',
+            ],
+            'description' => [
+                'id' => 'Pertanyaan terkait jam operasional dan prosedur layanan',
+                'en' => 'Questions related to operating hours and service procedures',
+            ],
             'icon' => 'user-group',
             'sort_order' => 1,
             'is_active' => true,
         ]);
 
         $topicAdministrasi = QuestionTopic::firstOrCreate(['slug' => 'administrasi'], [
-            'name' => 'Administrasi & Perizinan',
-            'description' => 'Konsultasi berkas dan alur permohonan',
+            'name' => [
+                'id' => 'Administrasi & Perizinan',
+                'en' => 'Administration & Licensing',
+            ],
+            'description' => [
+                'id' => 'Konsultasi berkas dan alur permohonan',
+                'en' => 'Document consultation and application workflows',
+            ],
             'icon' => 'document-text',
             'sort_order' => 2,
             'is_active' => true,
@@ -131,16 +170,30 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 8. Sample FAQ
-        Faq::firstOrCreate(['question' => 'Bagaimana cara mengajukan permohonan perizinan secara daring?'], [
+        Faq::firstOrCreate(['sort_order' => 1], [
             'topic_id' => $topicAdministrasi->id,
-            'answer' => 'Anda dapat mendaftar melalui menu Layanan Publik, melengkapi formulir digital dan mengunggah dokumen persyaratan.',
+            'question' => [
+                'id' => 'Bagaimana cara mengajukan permohonan perizinan secara daring?',
+                'en' => 'How to submit an online permit application?',
+            ],
+            'answer' => [
+                'id' => 'Anda dapat mendaftar melalui menu Layanan Publik, melengkapi formulir digital dan mengunggah dokumen persyaratan.',
+                'en' => 'You can register via the Public Services menu, complete the digital form and upload required documents.',
+            ],
             'sort_order' => 1,
             'is_active' => true,
         ]);
 
         // 9. Sample Slide
-        Slide::firstOrCreate(['title' => 'Selamat Datang di Portal Resmi'], [
-            'description' => 'Pusat informasi berita dan penyampaian aspirasi masyarakat.',
+        Slide::firstOrCreate(['sort_order' => 1], [
+            'title' => [
+                'id' => 'Selamat Datang di Portal Resmi',
+                'en' => 'Welcome to the Official Portal',
+            ],
+            'description' => [
+                'id' => 'Pusat informasi berita dan penyampaian aspirasi masyarakat.',
+                'en' => 'Center for news information and public aspiration submissions.',
+            ],
             'image' => 'slides/default-slide.jpg',
             'link_url' => 'https://example.com',
             'sort_order' => 1,
@@ -153,21 +206,33 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        MenuItem::firstOrCreate(['menu_id' => $menuHeader->id, 'label' => 'Beranda'], [
+        MenuItem::firstOrCreate(['menu_id' => $menuHeader->id, 'sort_order' => 1], [
+            'label' => [
+                'id' => 'Beranda',
+                'en' => 'Home',
+            ],
             'url' => '/',
             'type' => MenuItemType::Custom,
             'sort_order' => 1,
             'is_active' => true,
         ]);
 
-        MenuItem::firstOrCreate(['menu_id' => $menuHeader->id, 'label' => 'Profil Instansi'], [
+        MenuItem::firstOrCreate(['menu_id' => $menuHeader->id, 'sort_order' => 2], [
+            'label' => [
+                'id' => 'Profil Instansi',
+                'en' => 'Agency Profile',
+            ],
             'url' => '/pages/profil-instansi',
             'type' => MenuItemType::Page,
             'sort_order' => 2,
             'is_active' => true,
         ]);
 
-        MenuItem::firstOrCreate(['menu_id' => $menuHeader->id, 'label' => 'Tanya Kami'], [
+        MenuItem::firstOrCreate(['menu_id' => $menuHeader->id, 'sort_order' => 3], [
+            'label' => [
+                'id' => 'Tanya Kami',
+                'en' => 'Ask Us',
+            ],
             'url' => '/pertanyaan',
             'type' => MenuItemType::Custom,
             'sort_order' => 3,
