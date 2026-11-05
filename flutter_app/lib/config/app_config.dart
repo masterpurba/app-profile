@@ -5,17 +5,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppConfig {
   static const String _baseUrlKey = 'custom_base_url';
 
+  /// Standard presets for development, testing, and production
+  static const String liveBaseUrl = 'https://cmslayanan.freedev.app/api/v1';
+  static const String genymotionBaseUrl = 'http://10.0.3.2:8000/api/v1';
+  static const String standardEmulatorBaseUrl = 'http://10.0.2.2:8000/api/v1';
+  static const String localWebBaseUrl = 'http://127.0.0.1:8000/api/v1';
+
+  /// Auto-detect appropriate default base URL based on running platform
   static String get defaultBaseUrl {
     if (kIsWeb) {
-      return 'http://127.0.0.1:8000/api/v1';
+      return localWebBaseUrl;
     }
     try {
       if (Platform.isAndroid) {
-        // Android emulator connects to host machine via 10.0.2.2
-        return 'http://10.0.3.2:8000/api/v1';
+        // Genymotion uses 10.0.3.2 to route to the host machine
+        return genymotionBaseUrl;
       }
     } catch (_) {}
-    return 'http://127.0.0.1:8000/api/v1';
+    return localWebBaseUrl;
   }
 
   static String _baseUrl = '';
@@ -24,13 +31,21 @@ class AppConfig {
 
   static Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
-    _baseUrl = prefs.getString(_baseUrlKey) ?? defaultBaseUrl;
+    final saved = prefs.getString(_baseUrlKey);
+    // If user was previously assigned the unreachable live URL during local dev/testing,
+    // automatically fall back to the working platform default
+    if (saved != null && saved.contains('cmslayanan.freedev.app')) {
+      await prefs.remove(_baseUrlKey);
+      _baseUrl = defaultBaseUrl;
+    } else {
+      _baseUrl = saved ?? defaultBaseUrl;
+    }
   }
 
   static Future<void> setBaseUrl(String url) async {
-    _baseUrl = url;
+    _baseUrl = url.trim();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_baseUrlKey, url);
+    await prefs.setString(_baseUrlKey, _baseUrl);
   }
 
   static Future<void> resetBaseUrl() async {
@@ -39,4 +54,3 @@ class AppConfig {
     await prefs.remove(_baseUrlKey);
   }
 }
-

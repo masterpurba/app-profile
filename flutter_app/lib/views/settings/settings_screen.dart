@@ -39,48 +39,91 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final controller = TextEditingController(text: AppConfig.baseUrl);
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(context.tr('server_setting')),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.tr('server_desc'),
-              style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setDialogState) => AlertDialog(
+          title: Text(context.tr('server_setting')),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.tr('server_desc'),
+                  style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    labelText: 'URL API',
+                    hintText: AppConfig.defaultBaseUrl,
+                    border: const OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  'Preset Cepat:',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 6),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    ActionChip(
+                      label: const Text('Genymotion (10.0.3.2)', style: TextStyle(fontSize: 11)),
+                      onPressed: () {
+                        setDialogState(() {
+                          controller.text = AppConfig.genymotionBaseUrl;
+                        });
+                      },
+                    ),
+                    ActionChip(
+                      label: const Text('Web / Lokal (127.0.0.1)', style: TextStyle(fontSize: 11)),
+                      onPressed: () {
+                        setDialogState(() {
+                          controller.text = AppConfig.localWebBaseUrl;
+                        });
+                      },
+                    ),
+                    ActionChip(
+                      label: const Text('Live Server', style: TextStyle(fontSize: 11)),
+                      onPressed: () {
+                        setDialogState(() {
+                          controller.text = AppConfig.liveBaseUrl;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                hintText: 'http://127.0.0.1:8000/api/v1',
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              await AppConfig.resetBaseUrl();
-              if (ctx.mounted) Navigator.pop(ctx);
-              setState(() {});
-              _loadSettings();
-            },
-            child: const Text('Reset Default'),
           ),
-          FilledButton(
-            onPressed: () async {
-              final newUrl = controller.text.trim();
-              if (newUrl.isNotEmpty) {
-                await AppConfig.setBaseUrl(newUrl);
+          actions: [
+            TextButton(
+              onPressed: () async {
+                await AppConfig.resetBaseUrl();
                 if (ctx.mounted) Navigator.pop(ctx);
                 setState(() {});
                 _loadSettings();
-              }
-            },
-            child: const Text('Simpan / Save'),
-          ),
-        ],
+              },
+              child: const Text('Reset Default'),
+            ),
+            FilledButton(
+              onPressed: () async {
+                final newUrl = controller.text.trim();
+                if (newUrl.isNotEmpty) {
+                  await AppConfig.setBaseUrl(newUrl);
+                  if (ctx.mounted) Navigator.pop(ctx);
+                  setState(() {});
+                  _loadSettings();
+                }
+              },
+              child: const Text('Simpan / Save'),
+            ),
+          ],
+        ),
       ),
     );
   }
